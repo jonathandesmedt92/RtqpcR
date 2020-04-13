@@ -1,11 +1,15 @@
 Package: RtqpcR
 Type: Package
-Title: What the Package Does (Title Case)
+Title: RtqpcR facilitates analysis and QC of RT-qPCR data.
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Jonathan De Smedt
+Maintainer: Jonathan De Smedt <jonathandesmedt92@gmail.com>
+Description: 
+License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 6.1.1
+Collate: 
+    'classes.R'
+    'functions.R'
+    'methods.R'
