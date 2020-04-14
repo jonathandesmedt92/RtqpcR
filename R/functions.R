@@ -13,8 +13,6 @@
 #'
 #' \code{read_qpcr} reads in and formats the RT-qPCR expression data.
 #'
-#' @name read_qpcr
-#' @title read_qpcr
 #' @param qpcr An empty instance of the qpcr class.
 #' @param files A vector of paths pointing to qPCR raw data files.
 #' @param keep_undetected A logical indicating whether to keep undetected CT values and set them to 40, or to simply delete those entries. Defaults to TRUE.
