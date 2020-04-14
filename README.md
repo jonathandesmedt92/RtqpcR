@@ -84,7 +84,7 @@ Creating plots
 Several plotting functions are available to make bar charts and line
 graphs.
 
-    # We create a barplot
+    # We create a barplot with linear or logarithmic scale
     bar_plot(qpcr=obj, 
             xvar="Concentration", 
             baseline_samples=c(1,2,3), 
@@ -102,4 +102,23 @@ graphs.
             bar_fill = "Concentration",
             colors = c("#000000","#bfbfbf","#666666"))
 
-![](README_files/figure-markdown_strict/unnamed-chunk-13-1.png)
+![](README_files/figure-markdown_strict/unnamed-chunk-9-1.png)
+
+    bar_plot(qpcr=obj, 
+            xvar="Concentration", 
+            baseline_samples=c(1,2,3), 
+            genes=c("GENE1","GENE2","GENE3"), 
+            ND_y_nudge=0.5, 
+            comparisons = list(c("0","20"),
+                               c("0","40")),
+            xlabels = c("0" = "Concentration 0", "20" = "Concentration 20","40" = "Concentration 40"),
+            linear = F,
+            y_breaks = c(1,10,100,1000,10000),
+            map_signif_level = T,
+            legend = T,
+            step_increase=0.1,
+            tip_length=0.05,
+            bar_fill = "Concentration",
+            colors = c("#000000","#bfbfbf","#666666"))
+
+![](README_files/figure-markdown_strict/unnamed-chunk-9-2.png)
