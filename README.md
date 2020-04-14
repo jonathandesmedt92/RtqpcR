@@ -58,9 +58,7 @@ expression values will be aggregated accordingly.
 
 As as example for this tutorial, our annotation file looks like this:
 
-    ## # A tibble: 6 x 3
     ##   Sample Concentration Bio_rep
-    ##    <dbl>         <dbl>   <dbl>
     ## 1      1             0       1
     ## 2      2             0       2
     ## 3      3             0       3
@@ -71,8 +69,8 @@ As as example for this tutorial, our annotation file looks like this:
     # Read in the sample annotation
     obj<-add_annot(qpcr = obj, file = "data/annotation.xlsx")
 
-Performning the core qpcr analysis
-----------------------------------
+Performing the core qPCR analysis
+---------------------------------
 
 In this step the main analysis will be done. This includes aggregating
 values of the technical replicates, aggregating values of the reference
@@ -80,12 +78,28 @@ genes, and calculating delta CT values.
 
     obj<-analyse_qpcr(qpcr = obj, reference_genes = c("GENE4","GENE5","GENE6"), aggregation ="geomean")
 
-Including Plots
----------------
+Creating plots
+--------------
 
-You can also embed plots, for example:
+Several plotting functions are available to make bar charts and line
+graphs.
 
-![](README_files/figure-markdown_strict/pressure-1.png)
+    # We create a barplot
+    bar_plot(qpcr=obj, 
+            xvar="Concentration", 
+            baseline_samples=c(1,2,3), 
+            genes=c("GENE1","GENE2","GENE3"), 
+            ND_y_nudge=0.5, 
+            comparisons = list(c("0","20"),
+                               c("0","40")),
+            xlabels = c("0" = "Concentration 0", "20" = "Concentration 20","40" = "Concentration 40"),
+            linear = T,
+            y_breaks = NULL,
+            map_signif_level = T,
+            legend = T,
+            step_increase=0.1,
+            tip_length=0.05,
+            bar_fill = "Concentration",
+            colors = c("#000000","#bfbfbf","#666666"))
 
-Note that the `echo = FALSE` parameter was added to the code chunk to
-prevent printing of the R code that generated the plot.
+![](README_files/figure-markdown_strict/unnamed-chunk-13-1.png)

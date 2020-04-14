@@ -66,7 +66,7 @@ As as example for this tutorial, our annotation file looks like this:
 
 ```{r, eval=TRUE, echo=FALSE, message=FALSE}
 annot<-readxl::read_excel("data/annotation.xlsx", sheet=1)
-head(annot)
+head(data.frame(annot,stringsAsFactors = F))
 
 ```
 
@@ -76,7 +76,7 @@ obj<-add_annot(qpcr = obj, file = "data/annotation.xlsx")
 ```
 
 
-## Performning the core qpcr analysis
+## Performing the core qPCR analysis
 
 In this step the main analysis will be done. This includes aggregating values of the technical replicates, aggregating values of the reference genes, and calculating delta CT values.
 
@@ -86,14 +86,31 @@ obj<-analyse_qpcr(qpcr = obj, reference_genes = c("GENE4","GENE5","GENE6"), aggr
 ```
 
 
+## Creating plots
+
+Several plotting functions are available to make bar charts and line graphs.
 
 
-## Including Plots
+```{r, eval=TRUE, message=FALSE}
+# We create a barplot
+bar_plot(qpcr=obj, 
+        xvar="Concentration", 
+        baseline_samples=c(1,2,3), 
+        genes=c("GENE1","GENE2","GENE3"), 
+        ND_y_nudge=0.5, 
+        comparisons = list(c("0","20"),
+                           c("0","40")),
+        xlabels = c("0" = "Concentration 0", "20" = "Concentration 20","40" = "Concentration 40"),
+        linear = T,
+        y_breaks = NULL,
+        map_signif_level = T,
+        legend = T,
+        step_increase=0.1,
+        tip_length=0.05,
+        bar_fill = "Concentration",
+        colors = c("#000000","#bfbfbf","#666666"))
 
-You can also embed plots, for example:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+

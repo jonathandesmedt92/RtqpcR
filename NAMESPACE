@@ -2,8 +2,12 @@
 
 export(add_annot)
 export(analyse_qpcr)
+export(bar_plot)
 export(qpcr)
 export(read_qpcr)
 import(dplyr)
+import(ggplot2)
+import(ggrepel)
+import(ggsignif)
 importFrom(dplyr,bind_rows)
 importFrom(readxl,read_excel)
