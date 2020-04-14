@@ -16,7 +16,7 @@
 #' @slot annotation A dataframe containing the sample annotation data.
 #' @slot melting A dataframe containing the melting curve data of each sample.
 
-qpcr<-setClass("qcpr",
+qpcr<-setClass("qpcr",
                slots = c(
                  ct = "data.frame",
                  references = "data.frame",
