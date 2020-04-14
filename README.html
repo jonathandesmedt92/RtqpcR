@@ -369,10 +369,9 @@ summary {
 </div>
 
 
-<div id="rtqpcr-analysis-of-rt-qpcr-expression-data." class="section level2">
-<h2>RtqpcR: Analysis of RT-qPCR expression data.</h2>
+<div id="rtqpcr-analysis-of-rt-qpcr-expression-data." class="section level1">
+<h1>RtqpcR: Analysis of RT-qPCR expression data.</h1>
 <p>This package facilitates the analysis of RT-qPCR expression data (reverse transcriptase quantitative polymerase chain reaction). Here below we provide a tutorial for a standard qPCR analysis.</p>
-</div>
 <div id="dependencies" class="section level2">
 <h2>Dependencies</h2>
 <p>Before starting any qPCR analysis, please install the following packages:</p>
@@ -386,17 +385,40 @@ BiocManager::install(&quot;ggplot2&quot;)</code></pre>
 <pre class="r"><code>devtools::install_github(&quot;jonathandesmedt92/RtqpcR&quot;)
 library(RtqpcR)</code></pre>
 </div>
-<div id="tutorial" class="section level2">
-<h2>Tutorial</h2>
 </div>
-<div id="reading-the-raw-expression-data." class="section level1">
-<h1>Reading the raw expression data.</h1>
+<div id="tutorial" class="section level1">
+<h1>Tutorial</h1>
+<div id="reading-the-raw-expression-data." class="section level2">
+<h2>Reading the raw expression data.</h2>
 <p>To date, RtqpcR is only compatible with qPCR data from a Viaa7 platform (384-well plates). The first step is to read in the expression data. At this point, the user has to decide how to deal with undetected mRNA expression values. We generally recommend setting these expression values to 40 (i.e. maximal CT value). These values will be plotted in graphs, however they will not be included in statistical analyses.</p>
 <pre class="r"><code># Initialise an RtqpcR object
 obj&lt;-qpcr()
 
 # Read in the expression data
 obj&lt;-read_qpcr(qpcr = obj, files = &quot;data/test.xlsx&quot;)</code></pre>
+</div>
+<div id="adding-a-sample-annotation" class="section level2">
+<h2>Adding a sample annotation</h2>
+<p>We recommend to always write a sample annotation file. This allows one to… - keep track of all experimental data in the long run, - have a detailed and full experimental description for each sample, - easily include and use experimental variables in plots, - use a minimal labelling (i.e. numbering) in each step of the wet lab part of qPCR.</p>
+<p>The sample annotation file should have at least columnn (named ‘Sample’). Each biological replicate should have a different sample identifier. Technical replicates will have the same identifier and their expression values will be aggregated accordingly.</p>
+<p>As as example for this tutorial, our annotation file looks like this:</p>
+<pre><code>## # A tibble: 6 x 3
+##   Sample Concentration Bio_rep
+##    &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;
+## 1      1             0       1
+## 2      2             0       2
+## 3      3             0       3
+## 4      4            20       1
+## 5      5            20       2
+## 6      6            20       3</code></pre>
+<pre class="r"><code># Read in the sample annotation
+obj&lt;-add_annot(qpcr = obj, file = &quot;data/annotation.xlsx&quot;)</code></pre>
+</div>
+<div id="performning-the-core-qpcr-analysis" class="section level2">
+<h2>Performning the core qpcr analysis</h2>
+<p>In this step the main analysis will be done. This includes aggregating values of the technical replicates, aggregating values of the reference genes, and calculating delta CT values.</p>
+<pre class="r"><code>obj&lt;-analyse_qpcr(qpcr = obj, reference_genes = c(&quot;GENE4&quot;,&quot;GENE5&quot;,&quot;GENE6&quot;), aggregation =&quot;geomean&quot;)</code></pre>
+</div>
 <div id="including-plots" class="section level2">
 <h2>Including Plots</h2>
 <p>You can also embed plots, for example:</p>
